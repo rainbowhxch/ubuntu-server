@@ -1,0 +1,15 @@
+configstore/
+htop/
+coc/
+jesseduffield/
+
+nvim/plugged/
+nvim/autoload/
+
+zsh/.zcompdump*
+
+ranger/colorschemes/__pycache__/colorfull.cpython-38.opt-1.pyc
+ranger/colorschemes/__pycache__/colorfull.cpython-36.pyc
+ranger/colorschemes/__pycache__/__init__.cpython-38.opt-1.pyc
+ranger/colorschemes/__pycache__/__init__.cpython-36.pyc
+ranger/colorschemes/__init__.py

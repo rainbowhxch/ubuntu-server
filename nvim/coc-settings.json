@@ -1,0 +1,93 @@
+{
+    "coc.preferences.hoverTarget": "float",
+    "coc.preferences.snippets.enable": true,
+    "coc.preferences.snippetStatusText": "Ⓢ ",
+    "coc.preferences.colorSupport": true,
+    "coc.preferences.enableFloatHighlight": true,
+    "coc.preferences.extensionUpdateCheck": "daily",
+    "suggest.noselect": false,
+    "suggest.autoTrigger": "always",
+    "suggest.triggerAfterInsertEnter": true,
+    "suggest.minTriggerInputLength": 1,
+    "suggest.enablePreview": true,
+    "suggest.snippetIndicator": "",
+    "suggest.timeout": 5000,
+    "suggest.echodocSupport": true,
+    "suggest.floatEnable": true,
+    "clangd.checkUpdates": true,
+    "clangd.semanticHighlighting": true,
+    "python.jediEnabled": false,
+    "python.autoComplete.addBrackets": true,
+    "yaml.format.enable": true,
+    "snippets.ultisnips.directories": [
+	    "~/.config/nvim/Ultisnips/",
+	    "~/.config/nvim/plugged/vim-snippets/UltiSnips/"
+    ],
+    "yank.highlight.duration": 100,
+    "yank.enableCompletion": false,
+    "explorer.keyMappingMode": "none",
+    "explorer.openAction.strategy": "split",
+    "explorer.file.column.indent.indentLine": true,
+    "explorer.file.showHiddenFiles": false,
+    "explorer.file.column.git.showIgnored": true,
+    "explorer.keyMappings": {
+	"<space>": "toggleSelection",
+	"m": "actionMenu",
+
+	"k": "nodeNext",
+	"i": "nodePrev",
+	"j": "gotoParent",
+	"l": "cd",
+	"e": ["expanded?", "collapse", "expand"],
+	"o": ["expandable?", "expand", "open"],
+	"gj": "expandRecursive",
+	"gl": "collapseRecursive",
+	"gi": "expandablePrev",
+	"gk": "expandableNext",
+
+	"<cr>": ["expandable?", "cd", "open"],
+
+	"s": "open:split",
+	"S": "open:vsplit",
+	"t": "open:tab",
+	"I": "gotoParent",
+
+	"yp": "copyFilepath",
+	"yn": "copyFilename",
+	"yf": "copyFile",
+	"c": "cutFile",
+	"p": "pasteFile",
+	"d": "delete",
+	"D": "deleteForever",
+
+	"af": "addFile",
+	"ad": "addDirectory",
+	"r": "rename",
+
+	"h": "toggleHidden",
+	"R": "refresh",
+
+	"?": "help",
+	"q": "quit",
+	"<esc>": "esc",
+	"x": "systemExecute",
+	"gd": "listDrive",
+
+	"f": "search",
+	"F": "searchRecursive",
+
+	"gf": "gotoSource:file",
+	"gb": "gotoSource:buffer",
+
+	"[[": "sourcePrev",
+	"]]": "sourceNext",
+
+	"[d": "diagnosticPrev",
+	"]d": "diagnosticNext",
+
+	"[c": "gitPrev",
+	"]c": "gitNext",
+	"<<": "gitStage",
+	">>": "gitUnstage"
+    }
+}
