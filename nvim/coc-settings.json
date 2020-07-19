@@ -14,7 +14,6 @@
     "suggest.timeout": 5000,
     "suggest.echodocSupport": true,
     "suggest.floatEnable": true,
-    "clangd.checkUpdates": true,
     "clangd.semanticHighlighting": true,
     "python.jediEnabled": false,
     "python.autoComplete.addBrackets": true,

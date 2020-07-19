@@ -1,5 +1,7 @@
 # Profile file. Runs on login. Environmental variables are set here.
 
+export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+
 # Default programs:
 export EDITOR="nvim"
 

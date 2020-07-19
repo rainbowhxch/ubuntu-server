@@ -301,7 +301,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python --enable-go'}
+Plug 'puremourning/vimspector' ", {'do': './install_gadget.py --enable-c --enable-python --enable-go'}
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'junegunn/vim-easy-align'
@@ -384,7 +384,7 @@ inoremap <silent><expr> <TAB>
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 " common operation
-noremap <LEADER>cc :CocCommand<CR>
+noremap <LEADER>cd :CocCommand<CR>
 nmap gn <Plug>(coc-diagnostic-next)
 nmap gd <Plug>(coc-definition)
 nmap gD <Plug>(coc-declaration)
@@ -406,11 +406,11 @@ endfunction
 " coc-clangd
 noremap gh :CocCommand clangd.switchSourceHeader<CR>
 " coc-snippets
-imap <C-d> <Plug>(coc-snippets-expand)
-vmap <C-e> <Plug>(coc-snippets-select)
+imap <C-e> <Plug>(coc-snippets-expand)
+vmap <C-d> <Plug>(coc-snippets-select)
 let g:coc_snippet_prev = '<c-j>'
 let g:coc_snippet_next = '<c-l>'
-imap <C-e> <Plug>(coc-snippets-expand-jump)
+imap <C-d> <Plug>(coc-snippets-expand-jump)
 " coc-template
 nmap <LEADER>tp <Plug>(coc-template)
 " coc-explorer
