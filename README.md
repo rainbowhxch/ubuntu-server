@@ -11,7 +11,7 @@ sudo apt upgrade
 sudo add-apt-repository ppa:lazygit-team/release
 sudo add-apt-repository ppa:neovim-ppa/stable
 sudo apt update
-sudo apt install neovim lazygit neofetch htop npm nodejs zsh fzf
+sudo apt install neovim lazygit neofetch htop npm nodejs zsh fzf gdb gcc git clangd
 pip3 install pynvim ranger-fm
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 

@@ -6,20 +6,17 @@
 "         |___/
 "           * Originated by Rainbow Chen *
 
+"""""""""""""""""""""""""""""""
+"    some initial commands    "
+"""""""""""""""""""""""""""""""
 " Auto load plugs for the first time uses
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-    silent !curl -fLo "~/.config/nvim/autoload/plug.vim" --create-dirs
+if empty(glob($HOME.'/.config/nvim/autoload/plug.vim'))
+    silent !curl -fLo $HOME."/.config/nvim/autoload/plug.vim" --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" file path of swap, backup, undo files and vimtex plugin
-if !isdirectory($HOME.'/.cache/nvim')
-    call mkdir($HOME.'/.cache/nvim/swap', 'p', 0700)
-    call mkdir($HOME.'/.cache/nvim/backup')
-    call mkdir($HOME.'/.cache/nvim/undo')
-    call mkdir($HOME.'/.cache/nvim/vimtex')
-endif
+let s:vim_cachedir = $HOME. "/.cache/nvim/"
 
 " nocompatible mode
 set nocompatible
@@ -86,16 +83,26 @@ set conceallevel=3
 set inccommand=split
 
 " swap file
-set directory=$HOME/.cache/nvim/swap
+let &directory = s:vim_cachedir. "swap"
 " file backup
+let &backupdir = s:vim_cachedir. "backup"
+" undo file
+let &undodir = s:vim_cachedir. "undo"
+" view file
+let &viewdir = s:vim_cachedir. "view"
+" shada file
+let &shadafile = s:vim_cachedir. "shada"
+
+" file path of swap, backup, undo, view and vimtex&vista plugin files
+for d in [ &directory, &backupdir, &undodir, &viewdir,
+	 \ s:vim_cachedir."vimtex", s:vim_cachedir."vista" ]
+    call mkdir(d, "p", 0700)
+endfor
+
 set backup
 set backupext=.bak
-set backupdir=$HOME/.cache/nvim/backup
-" undo file
 set undofile
-set undodir=$HOME/.cache/nvim/undo
-" shada file
-set shada='1000,f1,<500,n~/.cache/nvim/shada
+set shada='1000,f1,<500
 
 " cursor shape in i mode
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
@@ -118,141 +125,6 @@ autocmd BufWritePre * %s/\n\+\%$//e
 
 " leader map
 let g:mapleader=" "
-" Open the vimrc file
-noremap <LEADER>rc :edit $MYVIMRC<CR>
-" shut dowm the highlight of last search
-noremap <LEADER><CR> :nohlsearch<CR>
-" move cursor to other window
-noremap <LEADER>l <C-w>l
-noremap <LEADER>i <C-w>k
-noremap <LEADER>j <C-w>h
-noremap <LEADER>k <C-w>j
-" swith the position of current window
-noremap <LEADER>L <C-w>L
-noremap <LEADER>I <C-w>K
-noremap <LEADER>J <C-w>H
-noremap <LEADER>K <C-w>J
-" substitute
-noremap <LEADER>s :%s///g<left><left><left>
-" switch upper or lower
-noremap <LEADER>u ~h
-" cute font
-noremap <LEADER>fr :r !figlet<SPACE>
-" go to next buffer
-noremap <LEADER>bn :bnext<CR>
-" go to previous buffer
-noremap <LEADER>bp :bprevious<CR>
-" go to the buffer that you view just before
-noremap <LEADER>bb <C-^>
-" delete current buffer
-noremap <LEADER>bd :bdelete<CR>
-" alter the keymap between colemak with normal us keyboard
-noremap <LEADER>bc :source $HOME/.vim/insert-colemak.vim<CR>
-noremap <LEADER>bu :source $HOME/.vim/insert-normal.vim<CR>
-" plus 1 to value in current location
-noremap <LEADER>. <C-a>
-" minus 1 to value in current location
-noremap <LEADER>, <C-x>
-" jump to the next placehold and edit it
-noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
-
-" search
-noremap // /
-
-" go next or previous searched text and keep in middle of screen
-nnoremap - Nzz
-nnoremap = nzz
-" change indent
-nnoremap < <<
-nnoremap > >>
-" go into insert mode
-noremap m i
-noremap M I
-" mark
-noremap h m
-" movement
-noremap j h
-noremap J b
-noremap k j
-noremap K 5j
-noremap i k
-noremap I 5k
-noremap L w
-" visual movement
-noremap gk gj
-noremap gi gk
-
-" move current line up
-noremap <C-i> :<c-u>execute 'move -1-'. v:count1<CR>
-" move current line down
-noremap <C-k> :<c-u>execute 'move +'. v:count1<CR>
-" move cusor to head of current line
-noremap <C-j> 0
-" move cusor to end of current line
-noremap <C-l> $
-" <C-u> go to older position, <C-o> go to newer position
-noremap <C-o> <C-i>
-noremap <C-u> <C-o>
-" use sys-clipboard in normal mode
-nnoremap <C-y> "+yy
-nnoremap <C-p> o<Esc>"+p
-
-" go the end of the current line but ignore the return char
-xnoremap <C-l> g_
-" use sys-clipboard in v mode
-xnoremap <C-y> "+y
-xnoremap <C-p> "+p
-
-" command mode movement
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-cnoremap <C-j> <Left>
-cnoremap <C-l> <Right>
-
-" insert mode movement inner current line
-inoremap <C-j> <Esc>I
-inoremap <C-l> <Esc>A
-" re-select view block after indent in v mode
-xnoremap < <gv
-xnoremap > >gv
-" save
-nnoremap S :w<CR>
-nnoremap s <nop>
-" quit
-nnoremap Q :q<CR>
-" refresh my vimrc
-nnoremap R :source $MYVIMRC<CR>
-
-" split windows
-nnoremap sl :set splitright<CR>:vsplit<CR>
-nnoremap sj :set nosplitright<CR>:vsplit<CR>
-nnoremap si :set nosplitbelow<CR>:split<CR>
-nnoremap sk :set splitbelow<CR>:split<CR>
-
-" alter size of the current window
-noremap <up> :resize +5<CR>
-noremap <down> :resize -5<CR>
-noremap <left> :vertical resize+5<CR>
-noremap <right> :vertical resize-5<CR>
-
-" tab operation
-nnoremap tj :-tabnext<CR>
-nnoremap te :tabedit<CR>
-nnoremap tl :+tabnext<CR>
-nnoremap tmj :-tabmove<CR>
-nnoremap tml :+tabmove<CR>
-" make current window widest on left or top
-nnoremap sv <C-w>H
-nnoremap sh <C-w>K
-" rotate windows
-nnoremap sr <C-w>r
-nnoremap sR <C-w>R
-
-" compile and run (file scope or project scope)
-noremap <F6> :AsyncTask file-build<CR>
-noremap <F7> :call FileRun()<CR>
-noremap <LEADER><F6> :AsyncTask project-build<CR>
-noremap <LEADER><F7> :AsyncTask project-run<CR>
 
 " make task run on floaterm
 function! s:runner_proc(opts)
@@ -301,7 +173,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'puremourning/vimspector' ", {'do': './install_gadget.py --enable-c --enable-python --enable-go'}
+Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python --enable-go'}
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'junegunn/vim-easy-align'
@@ -317,17 +189,24 @@ Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'voldikss/vim-floaterm'
+Plug 'metakirby5/codi.vim'
+Plug 'wellle/targets.vim'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'andymass/vim-matchup'
+Plug 'osyo-manga/vim-anzu'
+Plug 'wakatime/vim-wakatime'
 
 " themes
 Plug 'joshdick/onedark.vim'
 Plug 'arcticicestudio/nord-vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'connorholyday/vim-snazzy'
+Plug 'arzg/vim-colors-xcode'
 
 call plug#end()
 
 " vim colorscheme
-colorscheme dracula
+colorscheme xcodedark
+
 "onedark
 let g:onedark_terminal_italics = 1
 
@@ -507,7 +386,7 @@ nnoremap <F11> :call vimspector#StepInto()<CR>
 nnoremap <F12> :call vimspector#StepOut()<CR>
 function! s:read_template_into_buffer(template)
     " has to be a function to avoid the extra space fzf#run insers otherwise
-    execute '0r ~/.vim/vimspector_json_templation/'.a:template
+    execute '0r ~/.config/nvim/vimspector_json_templation/'.a:template
 endfunction
 command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
     \   'source': 'ls -1 ~/.config/nvim/vimspector_json_templation',
@@ -602,7 +481,7 @@ let g:xtabline_settings.enable_mappings = 0
 let g:xtabline_settings.enable_persistance = 0
 let g:xtabline_settings.last_open_first = 1
 let g:xtabline_settings.tabline_modes = ['tabs', 'buffers']
-autocmd vimenter * :XTabTheme tomorrow
+autocmd vimenter * :XTabTheme default
 let g:xtabline_settings.indicators = {
   \ 'modified': '[+]',
   \ 'pinned': '[📌]',
@@ -654,9 +533,160 @@ let g:vimtex_view_method = 'zathura'
 " floaterm
 let g:floaterm_keymap_toggle = '<F1>'
 
+" targets.vim
+let g:targets_aiAI = 'amAM'
+let g:targets_mapped_aiAI = 'aiAI'
+
+" vim-anzu
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+
+" vim-matchup
+let g:matchup_mappings_enabled = 0
+nmap % <plug>(matchup-%)
+nmap goa v<plug>(matchup-%)
+
 " lazygit
 noremap <LEADER>gi :FloatermNew lazygit<CR>
 noremap <LEADER>R :FloatermNer ranger<CR>
+
+" Open the vimrc file
+noremap <LEADER>rc :edit $MYVIMRC<CR>
+" shut dowm the highlight of last search
+noremap <LEADER><CR> :nohlsearch<CR>
+" move cursor to other window
+noremap <LEADER>l <C-w>l
+noremap <LEADER>i <C-w>k
+noremap <LEADER>j <C-w>h
+noremap <LEADER>k <C-w>j
+" swith the position of current window
+noremap <LEADER>L <C-w>L
+noremap <LEADER>I <C-w>K
+noremap <LEADER>J <C-w>H
+noremap <LEADER>K <C-w>J
+" substitute
+noremap <LEADER>s :%s///g<left><left><left>
+" switch upper or lower
+noremap <LEADER>u ~h
+" cute font
+noremap <LEADER>fr :r !figlet<SPACE>
+" go to next buffer
+noremap <LEADER>bn :bnext<CR>
+" go to previous buffer
+noremap <LEADER>bp :bprevious<CR>
+" go to the buffer that you view just before
+noremap <LEADER>bb <C-^>
+" delete current buffer
+noremap <LEADER>bd :bdelete<CR>
+" alter the keymap between colemak with normal us keyboard
+noremap <LEADER>bc :source $HOME/.vim/insert-colemak.vim<CR>
+noremap <LEADER>bu :source $HOME/.vim/insert-normal.vim<CR>
+" plus 1 to value in current location
+noremap <LEADER>. <C-a>
+" minus 1 to value in current location
+noremap <LEADER>, <C-x>
+" jump to the next placehold and edit it
+noremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
+
+" search
+noremap // /
+
+" go next or previous searched text and keep in middle of screen
+nnoremap - Nzz
+nnoremap = nzz
+" change indent
+nnoremap < <<
+nnoremap > >>
+" go into insert mode
+noremap m i
+noremap M I
+" mark
+noremap h m
+" movement
+noremap j h
+noremap J b
+noremap k j
+noremap K 5j
+noremap i k
+noremap I 5k
+noremap L w
+" visual movement
+noremap gk gj
+noremap gi gk
+
+" move current line up
+noremap <C-i> :<c-u>execute 'move -1-'. v:count1<CR>
+" move current line down
+noremap <C-k> :<c-u>execute 'move +'. v:count1<CR>
+" move cusor to head of current line
+noremap <C-j> 0
+" move cusor to end of current line
+noremap <C-l> $
+" <C-u> go to older position, <C-o> go to newer position
+noremap <C-o> <C-i>
+noremap <C-u> <C-o>
+" use sys-clipboard in normal mode
+nnoremap <C-y> "+yy
+nnoremap <C-p> o<Esc>"+p
+
+" go the end of the current line but ignore the return char
+xnoremap <C-l> g_
+" use sys-clipboard in v mode
+xnoremap <C-y> "+y
+xnoremap <C-p> "+p
+
+" command mode movement
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-j> <Left>
+cnoremap <C-l> <Right>
+
+" insert mode movement inner current line
+inoremap <C-j> <Esc>I
+inoremap <C-l> <Esc>A
+" re-select view block after indent in v mode
+xnoremap < <gv
+xnoremap > >gv
+" save
+nnoremap S :w<CR>
+nnoremap s <nop>
+" quit
+nnoremap Q :q<CR>
+" refresh my vimrc
+nnoremap R :source $MYVIMRC<CR>
+
+" split windows
+nnoremap sl :set splitright<CR>:vsplit<CR>
+nnoremap sj :set nosplitright<CR>:vsplit<CR>
+nnoremap si :set nosplitbelow<CR>:split<CR>
+nnoremap sk :set splitbelow<CR>:split<CR>
+
+" alter size of the current window
+noremap <up> :resize +5<CR>
+noremap <down> :resize -5<CR>
+noremap <left> :vertical resize+5<CR>
+noremap <right> :vertical resize-5<CR>
+
+" tab operation
+nnoremap tj :-tabnext<CR>
+nnoremap te :tabedit<CR>
+nnoremap tl :+tabnext<CR>
+nnoremap tmj :-tabmove<CR>
+nnoremap tml :+tabmove<CR>
+" make current window widest on left or top
+nnoremap sv <C-w>H
+nnoremap sh <C-w>K
+" rotate windows
+nnoremap sr <C-w>r
+nnoremap sR <C-w>R
+
+" compile and run (file scope or project scope)
+noremap <F6> :AsyncTask file-build<CR>
+noremap <F7> :call FileRun()<CR>
+noremap <LEADER><F6> :AsyncTask project-build<CR>
+noremap <LEADER><F7> :AsyncTask project-run<CR>
 
 unmap <TAB>
 
