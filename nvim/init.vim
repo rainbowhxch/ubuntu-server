@@ -6,9 +6,6 @@
 "         |___/
 "           * Originated by Rainbow Chen *
 
-"""""""""""""""""""""""""""""""
-"    some initial commands    "
-"""""""""""""""""""""""""""""""
 " Auto load plugs for the first time uses
 if empty(glob($HOME.'/.config/nvim/autoload/plug.vim'))
     silent !curl -fLo $HOME."/.config/nvim/autoload/plug.vim" --create-dirs
@@ -63,12 +60,9 @@ set laststatus=2
 set updatetime=100
 set updatecount=100
 set autochdir
-set nolangremap
 set indentexpr=
-set ttyfast
 set lazyredraw
 set virtualedit=block
-set completeopt=menuone
 set termguicolors
 set noshowmode
 " shutdown the error bell
@@ -77,8 +71,6 @@ set novisualbell
 set vb t_vb=
 " recommender render 256 colors
 set t_Co=256
-" for devicons around brackets
-set conceallevel=3
 " for preview of the substitue
 set inccommand=split
 
@@ -112,9 +104,6 @@ let &t_SR = "\<Esc>]50;CursorShape=2\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 " let vim with terminal be better
 let &t_ut = ''
-" set vim-specific sequences for RGB colors
-" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 " go back the last line where you quit vim
 autocmd BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
@@ -194,26 +183,45 @@ Plug 'wellle/targets.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'andymass/vim-matchup'
 Plug 'osyo-manga/vim-anzu'
-Plug 'wakatime/vim-wakatime'
+Plug 'tpope/vim-repeat'
+" Plug 'brooth/far.vim'
+Plug 'liuchenxu/vim-which-key'
 
 " themes
 Plug 'joshdick/onedark.vim'
 Plug 'arcticicestudio/nord-vim'
+Plug 'dracula/vim', {'as': 'dracula'}
 Plug 'connorholyday/vim-snazzy'
 Plug 'arzg/vim-colors-xcode'
+Plug 'ayu-theme/ayu-vim'
+Plug 'morhetz/gruvbox'
+Plug 'nerdypepper/agila.vim'
 
 call plug#end()
 
-" vim colorscheme
-colorscheme xcodedark
+" ayu
+let ayucolor = "mirage"
 
 "onedark
 let g:onedark_terminal_italics = 1
 
 " nord
-" let g:nord_italic = 1
-" let g:nord_italic_comments = 1
-" let g:nord_underline = 1
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
+let g:nord_underline = 1
+
+" xcode
+augroup vim-colors-xcode
+    autocmd!
+augroup END
+autocmd vim-colors-xcode ColorScheme * hi Comment cterm=italic gui=italic
+autocmd vim-colors-xcode ColorScheme * hi SpecialComment cterm=italic gui=italic
+
+" gruvbox
+let g:gruvbox_italic=1
+
+" vim colorscheme
+colorscheme gruvbox
 
 " airline
 " let g:airline_powerline_fonts = 1
@@ -250,6 +258,7 @@ let g:coc_global_extensions = [
     \ 'coc-floaterm',
     \ 'coc-highlight',
     \ 'coc-yank',
+    \ 'coc-calc',
     \ 'coc-tasks']
 "" use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
@@ -286,16 +295,16 @@ endfunction
 noremap gh :CocCommand clangd.switchSourceHeader<CR>
 " coc-snippets
 imap <C-e> <Plug>(coc-snippets-expand)
-vmap <C-d> <Plug>(coc-snippets-select)
-let g:coc_snippet_prev = '<c-j>'
-let g:coc_snippet_next = '<c-l>'
-imap <C-d> <Plug>(coc-snippets-expand-jump)
+vmap <C-j> <Plug>(coc-snippets-select)
+let g:coc_snippet_prev = '<c-k>'
+let g:coc_snippet_next = '<c-j>'
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 " coc-template
 nmap <LEADER>tp <Plug>(coc-template)
 " coc-explorer
 noremap <LEADER>n :CocCommand explorer<CR>
 " coc-highlight
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 " coc-yank
 nnoremap <silent> <LEADER>y  :CocList -A --normal yank<CR>
 
@@ -617,9 +626,9 @@ noremap gk gj
 noremap gi gk
 
 " move current line up
-noremap <C-i> :<c-u>execute 'move -1-'. v:count1<CR>
+noremap <C-i> :move -2<CR>
 " move current line down
-noremap <C-k> :<c-u>execute 'move +'. v:count1<CR>
+noremap <C-k> :move +1<CR>
 " move cusor to head of current line
 noremap <C-j> 0
 " move cusor to end of current line
@@ -687,7 +696,5 @@ noremap <F6> :AsyncTask file-build<CR>
 noremap <F7> :call FileRun()<CR>
 noremap <LEADER><F6> :AsyncTask project-build<CR>
 noremap <LEADER><F7> :AsyncTask project-run<CR>
-
-unmap <TAB>
 
 exec "nohlsearch"

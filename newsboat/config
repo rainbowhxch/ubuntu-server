@@ -1,0 +1,24 @@
+# newsboat config by Rainbow Ch
+
+cache-file "~/.cache/newsboat/cache.db"
+error-log "~/.cache/newsboat/error.log"
+save-path "~/.cache/newsboat/savedfiles"
+
+keep-articles-days 30
+max-items 200
+
+auto-reload yes
+refresh-on-startup yes
+reload-threads 4
+goto-next-feed no
+
+show-keymap-hint no
+
+unbind-key J
+unbind-key K
+unbind-key o
+bind-key o open
+bind-key k down
+bind-key i up
+bind-key K end
+bind-key I home

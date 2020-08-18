@@ -68,7 +68,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git command-not-found zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git vi-mode command-not-found zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -109,3 +109,14 @@ alias grep="grep --color=auto"
 alias "g++"="g++ -std=c++2a -g -Wall"
 alias "gcc"="gcc -std=c11 -g -Wall"
 bindkey '^k' autosuggest-accept
+
+# vi-mode keybinding
+bindkey -M vicmd 'j' vi-backward-char
+bindkey -M vicmd 'i' vi-up-line-or-history
+bindkey -M vicmd 'l' vi-forward-char
+bindkey -M vicmd 'k' vi-down-line-or-history
+bindkey -M vicmd 'J' vi-backward-word
+bindkey -M vicmd 'L' vi-forward-word
+bindkey -M vicmd 'm' vi-insert
+bindkey -M vicmd '^j' vi-beginning-of-line
+bindkey -M vicmd '^l' vi-end-of-line
