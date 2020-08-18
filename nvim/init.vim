@@ -8,7 +8,7 @@
 
 " Auto load plugs for the first time uses
 if empty(glob($HOME.'/.config/nvim/autoload/plug.vim'))
-    silent !curl -fLo $HOME."/.config/nvim/autoload/plug.vim" --create-dirs
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
@@ -44,12 +44,13 @@ set ignorecase
 set smartcase
 set whichwrap=b,s
 set shiftwidth=4
-set tabstop=8
+set tabstop=4
 set softtabstop=4
 set list
 set listchars=tab:▸\ ,trail:▫
 set scrolloff=6
-set cindent
+set autoindent
+set smartindent
 set backspace=indent,eol,start
 set foldmethod=indent
 set foldlevel=99
@@ -162,7 +163,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python --enable-go'}
+" Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python --enable-go'}
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'junegunn/vim-easy-align'
@@ -185,7 +186,7 @@ Plug 'andymass/vim-matchup'
 Plug 'osyo-manga/vim-anzu'
 Plug 'tpope/vim-repeat'
 " Plug 'brooth/far.vim'
-Plug 'liuchenxu/vim-which-key'
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
 " themes
 Plug 'joshdick/onedark.vim'
@@ -252,6 +253,7 @@ let g:coc_global_extensions = [
     \ 'coc-vimtex',
     \ 'coc-sql',
     \ 'coc-git',
+	\ 'coc-lists',
     \ 'coc-snippets',
     \ 'coc-template',
     \ 'coc-explorer',
@@ -556,6 +558,9 @@ nmap # <Plug>(anzu-sharp-with-echo)
 let g:matchup_mappings_enabled = 0
 nmap % <plug>(matchup-%)
 nmap goa v<plug>(matchup-%)
+
+" vim-which-key
+nnoremap <silent> <LEADER> :WhichKey '<SPACE>'<CR>
 
 " lazygit
 noremap <LEADER>gi :FloatermNew lazygit<CR>

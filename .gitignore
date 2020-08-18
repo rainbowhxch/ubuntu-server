@@ -17,3 +17,4 @@ ranger/colorschemes/__init__.py
 ranger/colorschemes/__pycache__/__init__.cpython-38.pyc
 ranger/colorschemes/__pycache__/colorfull.cpython-38.pyc
 nvim/.netrwhist
+nvim/.nvimlog
